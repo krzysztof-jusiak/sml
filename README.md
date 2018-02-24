@@ -22,7 +22,7 @@
 ### Quick start
 
 #### Download
-[Boost].SML requires only one file. Get the latest header [here!](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
+> [Boost].SML requires only one file. Get the latest header [here!](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
 
 #### Include
 ```cpp
