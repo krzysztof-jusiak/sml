@@ -9,7 +9,7 @@
 
 # [Boost].SML (State Machine Language)
 
-> Your scalable C++14 **one header only** State Machine Library with no dependencies ([__Try it online!__](https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah))
+> Your scalable C++14 **one header only** State Machine Library with no dependencies ([__Try it online!__](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
 
 <p align="center">
   <br />
@@ -30,7 +30,7 @@
 namespace sml = boost::sml;
 ```
 
-### Define dependencies
+### Dependencies
 ```cpp
 struct sender {
   template<class TMsg>
@@ -38,7 +38,7 @@ struct sender {
 };
 ```
 
-### Define events
+### Events
 ```cpp
 struct ack { bool valid{}; };
 struct fin { int id{}; bool valid{}; };
@@ -46,18 +46,18 @@ struct release {};
 struct timeout {};
 ```
 
-### Define guards
+### Guards
 ```cpp
 constexpr auto is_valid = [](const auto& event) { return event.valid; };
 ```
 
-### Define actions
+### Actions
 ```cpp
 constexpr auto send_fin = [](sender& s) { s.send(fin{0}); };
 constexpr auto send_ack = [](const auto& event, sender& s) { s.send(event); };
 ```
 
-### Define State Machine
+### State Machine
 ```cpp
 struct tcp_release final {
   auto operator()() const {
@@ -76,7 +76,7 @@ struct tcp_release final {
 };
 ```
 
-### Use it!
+### Usage
 ```cpp
 int main() {
   using namespace sml;
@@ -153,17 +153,21 @@ main: # @main
 </table>
 </p>
 
-#### Run
+#### Run (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
 ```sh
 ./a.out
-  send: 0
-  send: 42
+```
+```sh
+send: 0
+send: 42
 ```
 
 > (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
 
   * use `state<class state_name>` instead of `"state_name"_s`
   * expliclty state a lambda's result type `auto action = [] -> void {}`
+
+---------------------------------------
 
 ### Benchmark
 
