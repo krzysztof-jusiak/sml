@@ -115,7 +115,7 @@ int main() {
   </tr>
 
   <tr>
-    <td>ASM x86-64 (https://godbolt.org/g/sNfLzn)</td>
+    <td>ASM x86-64<br/>(https://godbolt.org/g/sNfLzn)</td>
     <td colspan="3">
       <pre><code>
 main: # @main
