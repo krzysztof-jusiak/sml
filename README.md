@@ -7,9 +7,11 @@
 
 ---------------------------------------
 
-# [Boost].SML (formerly called [Boost].MSM-lite)
+# [Boost].SML (State Machine Language)
 
-> Your scalable C++14 header State Machine Library with no dependencies (**[__Try it online!__](http://boost-experimental.github.io/sml/examples/index.html#hello-world)**)
+> Your scalable C++14 **one header only** State Machine Library with no dependencies (**[__Try it online!__](http://boost-experimental.github.io/sml/examples/index.html#hello-world)**)
+
+* Get the latest header [here](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)!
 
 <p align="center">
   <br />
@@ -23,31 +25,30 @@
 // $CXX -std=c++14 -O2 -fno-exceptions -Wall -Wextra -Werror -pedantic -pedantic-errors tcp_release.cpp
 // cl /std:c++14 /Ox /W3 tcp_release.cpp (***)
 
-#include <cassert>
 #include <boost/sml.hpp>
 
 namespace sml = boost::sml;
 
-//dependencies
+// dependencies
 struct sender {
-  template<class T>
-  void send(const T&) {}
+  template<class TMsg>
+  constexpr void send(const TMsg& msg) { std::printf("send: %d\n", msg.id); }
 };
 
 // events
-struct ack { bool valid = true; };
-struct fin { bool valid = true;};
+struct ack { bool valid{}; };
+struct fin { int id{}; bool valid{}; };
 struct release {};
 struct timeout {};
 
 // guards
-const auto is_valid = [](const auto& event) { return event.valid; };
+constexpr auto is_valid = [](const auto& event) { return event.valid; };
 
 // actions
-const auto send_fin = [](sender& s) { s.send(fin{}); };
-const auto send_ack = [](const auto& event, sender& s) { s.send(event); };
+constexpr auto send_fin = [](sender& s) { s.send(fin{0}); };
+constexpr auto send_ack = [](const auto& event, sender& s) { s.send(event); };
 
-struct tcp_release {
+struct tcp_release final {
   auto operator()() const {
     using namespace sml;
     /**
@@ -55,10 +56,10 @@ struct tcp_release {
      * Transition DSL: src_state + event [ guard ] / action = dst_state
      */
     return make_transition_table(
-      *"established"_s + event<release> / send_fin          = "fin wait 1"_s,
-       "fin wait 1"_s  + event<ack> [ is_valid ]            = "fin wait 2"_s,
-       "fin wait 2"_s  + event<fin> [ is_valid ] / send_ack = "timed wait"_s,
-       "timed wait"_s  + event<timeout> / send_ack          = X
+      *"established"_s + event<release>          / send_fin  = "fin wait 1"_s,
+       "fin wait 1"_s  + event<ack> [ is_valid ]             = "fin wait 2"_s,
+       "fin wait 2"_s  + event<fin> [ is_valid ] / send_ack  = "timed wait"_s,
+       "timed wait"_s  + event<timeout>                      = X
     );
   }
 };
@@ -66,28 +67,35 @@ struct tcp_release {
 int main() {
   using namespace sml;
 
-  sender s;
-  sm<tcp_release> sm{s}; // pass dependencies via ctor...
+  sender s{};
+  sm<tcp_release> sm{s}; // pass dependencies via ctor
   assert(sm.is("established"_s));
 
-  sm.process_event(release{}); // complexity O(1) -> jump table
+  sm.process_event(release{}); // complexity O(1)
   assert(sm.is("fin wait 1"_s));
 
-  sm.process_event(ack{});
+  sm.process_event(ack{true});
   assert(sm.is("fin wait 2"_s));
 
-  sm.process_event(fin{});
+  sm.process_event(fin{42, true});
   assert(sm.is("timed wait"_s));
 
   sm.process_event(timeout{});
-  assert(sm.is(X));  // released
+  assert(sm.is(X));  // terminated
 }
+```
+
+> Output (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
+```
+send: 0
+send: 42
 ```
 
 > (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
 
   * use `state<class state_name>` instead of `"state_name"_s`
   * expliclty state a lambda's result type `auto action = [] -> void {}`
+
 
 ### Benchmark
 
@@ -98,10 +106,6 @@ int main() {
     <th>Clang-3.8</th>
     <th>GCC-6</th>
     <th>MSVC-2015</th>
-
-    <td rowspan="4">
-      <a href="http://boost-experimental.github.io/sml/benchmarks/index.html#benchmarks">More Benchmarks</a>
-    </td>
   </tr>
 
   <tr>
@@ -119,28 +123,50 @@ int main() {
   </tr>
 
   <tr>
-    <td>ASM x86-64</td>
-    <td colspan="2">
+    <td>ASM x86-64 (https://godbolt.org/g/sNfLzn)</td>
+    <td colspan="3">
       <pre><code>
-process_event<release>:
-	movb	$1, (%r8) // current state = 1
-	movl	$1, %eax  // handled
-	ret
-
-main:
-	leaq	14(%rsp), %r8
-	leaq	15(%rsp), %rdi
-	movb	$0, 14(%rsp)
-	movq	%r8, %rcx
-	movq	%r8, %rdx
-	movq	%r8, %rsi
-	call	*process_event<release> // jump table
-  ...
+main: # @main
+  pushq %rax
+  movl $.L.str, %edi
+  xorl %esi, %esi
+  xorl %eax, %eax
+  callq printf
+  movl $.L.str, %edi
+  movl $42, %esi
+  xorl %eax, %eax
+  callq printf
+  xorl %eax, %eax
+  popq %rcx
+  retq
+.L.str:
+  .asciz "send: %d\n"
       </code></pre>
     </td>
   </tr>
 </table>
 </p>
+
+| Clang-3.7        | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
+|------------------|----------------|------------------|--------------------|--------------------|
+| Compilation time | 0.582s         | 1m15.935s        | 43.341s            | 3.661s             |
+| Execution time   | 69ms           | 81ms             | 78ms               | 6221ms             |
+| Memory usage     | 1b             | 120b             | 72b                | 200b               |
+| Executable size  | 35K            | 611K             | 31K + boost_system | 343K               |
+
+| GCC-5.2          | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
+|------------------|----------------|------------------|--------------------|--------------------|
+| Compilation time | 0.816s         | 52.238s          | 1m41.045s          | 4.997s             |
+| Execution time   | 72ms           | 77ms             | 91ms               | 5520ms             |
+| Memory usage     | 1b             | 120b             | 72b                | 224b               |
+| Executable size  | 35K            | 271K             | 47K + boost_system | 215K               |
+
+| MSVC-2015        | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
+|------------------|----------------|------------------|--------------------|--------------------|
+| Compilation time | 1.891s         |                  |                    |                    |
+| Execution time   | 166ms          |                  |                    |                    |
+| Memory usage     | 104b           |                  |                    |                    |
+| Executable size  | 224K           |                  |                    |                    |
 
 ---------------------------------------
 
@@ -230,9 +256,9 @@ main:
     * [Plant UML Integration](http://boost-experimental.github.io/sml/examples/index.html#plant-uml-integration)
 * [FAQ](http://boost-experimental.github.io/sml/faq/index.html)
 * [CHANGELOG](http://boost-experimental.github.io/sml/CHANGELOG/index.html)
-    * [ [1.1.0] - 2016-2017-XX-XX](http://boost-experimental.github.io/sml/CHANGELOG/index.html#-110-2016-2017-xx-xx)
-    * [ [1.0.1] - 2016-2017-05-06](http://boost-experimental.github.io/sml/CHANGELOG/index.html#-101-2016-2017-05-06)
-    * [[1.0.0] - 2016-2017-01-28](http://boost-experimental.github.io/sml/CHANGELOG/index.html#100-2016-2017-01-28)
+    * [ [1.1.0] - 2017-XX-XX](http://boost-experimental.github.io/sml/CHANGELOG/index.html#-110-2017-xx-xx)
+    * [ [1.0.1] - 2016-05-06](http://boost-experimental.github.io/sml/CHANGELOG/index.html#-101-2016-05-06)
+    * [[1.0.0] - 2016-01-28](http://boost-experimental.github.io/sml/CHANGELOG/index.html#100-2016-01-28)
 * [TODO](http://boost-experimental.github.io/sml/TODO/index.html)
 
 [](GENERATE_TOC_END)
