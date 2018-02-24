@@ -99,6 +99,11 @@ int main() {
 }
 ```
 
+> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
+
+  * use `state<class state_name>` instead of `"state_name"_s`
+  * expliclty state a lambda's result type `auto action = [] -> void {}`
+
 #### Compile
 ```sh
 $CXX -std=c++14 -O2 -fno-exceptions -Wall -Wextra -Werror -pedantic -pedantic-errors tcp_release.cpp
@@ -154,18 +159,11 @@ main: # @main
 </p>
 
 #### Run (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
-```sh
-./a.out
-```
+> Output
 ```sh
 send: 0
 send: 42
 ```
-
-> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
-
-  * use `state<class state_name>` instead of `"state_name"_s`
-  * expliclty state a lambda's result type `auto action = [] -> void {}`
 
 ---------------------------------------
 
