@@ -96,7 +96,7 @@ int main() {
   <tr>
     <th>tcp_release</th>
     <th>Clang-3.8</th>
-    <th>GCC-6.2</th>
+    <th>GCC-6.3</th>
     <th>MSVC-2015</th>
   </tr>
 
@@ -148,7 +148,7 @@ main: # @main
 | Memory usage     | 1b             | 120b             | 72b                | 200b               |
 | Executable size  | 35K            | 611K             | 31K + boost_system | 343K               |
 
-| GCC-6.3          | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
+| GCC-6.3          | [Boost].SML - 1.1.0 | Boost-1.65.MSM-eUML] | Boost-1.65.MSM3-eUML2 | Boost-1.65.Statechart |
 |------------------|----------------|------------------|--------------------|--------------------|
 | Compilation time | 0.816s         | 52.238s          | 1m41.045s          | 4.997s             |
 | Execution time   | 72ms           | 77ms             | 91ms               | 5520ms             |
