@@ -9,10 +9,7 @@
 
 # [Boost].SML (State Machine Language)
 
-> Your scalable C++14 **one header only** State Machine Library with no dependencies
-
-* [__Try it online!__](https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
-* Get the [__latest header!__](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
+> Your scalable C++14 **one header only** State Machine Library with no dependencies ([__Try it online!__](https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah))
 
 <p align="center">
   <br />
@@ -22,33 +19,46 @@
 
 <p align="center"><img src="doc/images/tcp_release.png" alt="tcp release"/></p>
 
+### Quick start
+
+#### Download
+[Boost].SML requires only one file. Get the latest header [here!](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
+
+#### Include
 ```cpp
-// $CXX -std=c++14 -O2 -fno-exceptions -Wall -Wextra -Werror -pedantic -pedantic-errors tcp_release.cpp
-// cl /std:c++14 /Ox /W3 tcp_release.cpp (***)
-
 #include <boost/sml.hpp>
-
 namespace sml = boost::sml;
+```
 
-// dependencies
+### Define dependencies
+```cpp
 struct sender {
   template<class TMsg>
   constexpr void send(const TMsg& msg) { std::printf("send: %d\n", msg.id); }
 };
+```
 
-// events
+### Define events
+```cpp
 struct ack { bool valid{}; };
 struct fin { int id{}; bool valid{}; };
 struct release {};
 struct timeout {};
+```
 
-// guards
+### Define guards
+```cpp
 constexpr auto is_valid = [](const auto& event) { return event.valid; };
+```
 
-// actions
+### Define actions
+```cpp
 constexpr auto send_fin = [](sender& s) { s.send(fin{0}); };
 constexpr auto send_ack = [](const auto& event, sender& s) { s.send(event); };
+```
 
+### Define State Machine
+```cpp
 struct tcp_release final {
   auto operator()() const {
     using namespace sml;
@@ -64,7 +74,10 @@ struct tcp_release final {
     );
   }
 };
+```
 
+### Use it!
+```cpp
 int main() {
   using namespace sml;
 
@@ -84,6 +97,12 @@ int main() {
   sm.process_event(timeout{});
   assert(sm.is(X));  // terminated
 }
+```
+
+#### Compile
+```sh
+$CXX -std=c++14 -O2 -fno-exceptions -Wall -Wextra -Werror -pedantic -pedantic-errors tcp_release.cpp
+cl /std:c++14 /Ox /W3 tcp_release.cpp (***)
 ```
 
 <p align="center">
@@ -133,6 +152,13 @@ main: # @main
   </tr>
 </table>
 </p>
+
+#### Run
+```sh
+./a.out
+  send: 0
+  send: 42
+```
 
 > (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
 
