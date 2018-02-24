@@ -9,9 +9,10 @@
 
 # [Boost].SML (State Machine Language)
 
-> Your scalable C++14 **one header only** State Machine Library with no dependencies (**[__Try it online!__](http://boost-experimental.github.io/sml/examples/index.html#hello-world)**)
+> Your scalable C++14 **one header only** State Machine Library with no dependencies
 
-* Get the latest header [here](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)!
+* (**[__Try it online!__](http://boost-experimental.github.io/sml/examples/index.html#hello-world)**)
+* Get the [latest header](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
 
 <p align="center">
   <br />
@@ -74,10 +75,10 @@ int main() {
   sm.process_event(release{}); // complexity O(1)
   assert(sm.is("fin wait 1"_s));
 
-  sm.process_event(ack{true});
+  sm.process_event(ack{true}); // prints 'send: 0'
   assert(sm.is("fin wait 2"_s));
 
-  sm.process_event(fin{42, true});
+  sm.process_event(fin{42, true}); // prints 'send: 42'
   assert(sm.is("timed wait"_s));
 
   sm.process_event(timeout{});
@@ -85,24 +86,10 @@ int main() {
 }
 ```
 
-> Output (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
-```
-send: 0
-send: 42
-```
-
-> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
-
-  * use `state<class state_name>` instead of `"state_name"_s`
-  * expliclty state a lambda's result type `auto action = [] -> void {}`
-
-
-### Benchmark
-
 <p align="center">
 <table>
   <tr>
-    <th></th>
+    <th>tcp_release (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)</th>
     <th>Clang-3.8</th>
     <th>GCC-6</th>
     <th>MSVC-2015</th>
@@ -146,6 +133,13 @@ main: # @main
   </tr>
 </table>
 </p>
+
+> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
+
+  * use `state<class state_name>` instead of `"state_name"_s`
+  * expliclty state a lambda's result type `auto action = [] -> void {}`
+
+### Benchmark
 
 | Clang-3.7        | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
 |------------------|----------------|------------------|--------------------|--------------------|
