@@ -99,7 +99,7 @@ int main() {
 }
 ```
 
-> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
+> MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
 
   * use `state<class state_name>` instead of `"state_name"_s`
   * expliclty state a lambda's result type `auto action = [] -> void {}`
@@ -107,7 +107,9 @@ int main() {
 #### Compile
 ```sh
 $CXX -std=c++14 -O2 -fno-exceptions -Wall -Wextra -Werror -pedantic -pedantic-errors tcp_release.cpp
-cl /std:c++14 /Ox /W3 tcp_release.cpp (***)
+```
+```sh
+cl /std:c++14 /Ox /W3 tcp_release.cpp
 ```
 
 <p align="center">
@@ -158,14 +160,13 @@ main: # @main
 </table>
 </p>
 
-#### Run (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
-> Output
+#### Run
+> Output (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
 ```sh
 send: 0
 send: 42
 ```
 
----------------------------------------
 
 | **Benchmark**                 |[Enum/Switch](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/switch.cpp) | [Variant](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/variant.cpp) | [[Boost].SML - 1.1.0](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sml.cpp)    | [Boost-1.65.MSM-eUML](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/euml.cpp)   | [Boost-1.65.Statechart](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sc.cpp)   |
 |------------------|------------|---------|--------------|------------------|--------------------|
