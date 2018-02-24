@@ -30,7 +30,7 @@
 namespace sml = boost::sml;
 ```
 
-### Dependencies
+#### Dependencies
 ```cpp
 struct sender {
   template<class TMsg>
@@ -38,7 +38,7 @@ struct sender {
 };
 ```
 
-### Events
+#### Events
 ```cpp
 struct ack { bool valid{}; };
 struct fin { int id{}; bool valid{}; };
@@ -46,18 +46,18 @@ struct release {};
 struct timeout {};
 ```
 
-### Guards
+#### Guards
 ```cpp
 constexpr auto is_valid = [](const auto& event) { return event.valid; };
 ```
 
-### Actions
+#### Actions
 ```cpp
 constexpr auto send_fin = [](sender& s) { s.send(fin{0}); };
 constexpr auto send_ack = [](const auto& event, sender& s) { s.send(event); };
 ```
 
-### State Machine
+#### State Machine
 ```cpp
 struct tcp_release final {
   auto operator()() const {
@@ -76,7 +76,7 @@ struct tcp_release final {
 };
 ```
 
-### Usage
+#### Usage
 ```cpp
 int main() {
   using namespace sml;
