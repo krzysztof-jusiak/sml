@@ -169,7 +169,7 @@ send: 42
 
 ### Benchmark
 
-> [Complex Test](https://github.com/boost-experimental/sml/tree/master/benchmark/complex)  (Same as before)
+> [Complex Test](https://github.com/boost-experimental/sml/tree/master/benchmark/complex)
 
 |                  |[Enum/Switch](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/switch.cpp) | [Variant](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/variant.cpp) | [[Boost].SML - 1.1.0](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sml.cpp)    | [Boost-1.65.MSM-eUML](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/euml.cpp)   | [Boost-1.65.Statechart](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sc.cpp)   |
 |------------------|------------|---------|--------------|------------------|--------------------|
