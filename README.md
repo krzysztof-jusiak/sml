@@ -134,7 +134,7 @@ cl /std:c++14 /Ox /W3 tcp_release.cpp (***)
   </tr>
 
   <tr>
-    <td>ASM x86-64<br/>(https://godbolt.org/g/sNfLzn)</td>
+    <td>ASM x86-64<br/>https://godbolt.org/g/sNfLzn</td>
     <td colspan="3">
       <pre><code>
 main: # @main
@@ -158,7 +158,9 @@ main: # @main
 </table>
 </p>
 
-#### Run (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
+#### Run
+  * https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah
+
 > Output
 ```sh
 send: 0
@@ -167,9 +169,7 @@ send: 42
 
 ---------------------------------------
 
-### Benchmark
-
-|                  |[Enum/Switch](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/switch.cpp) | [Variant](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/variant.cpp) | [[Boost].SML - 1.1.0](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sml.cpp)    | [Boost-1.65.MSM-eUML](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/euml.cpp)   | [Boost-1.65.Statechart](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sc.cpp)   |
+| **Benchmark**                 |[Enum/Switch](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/switch.cpp) | [Variant](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/variant.cpp) | [[Boost].SML - 1.1.0](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sml.cpp)    | [Boost-1.65.MSM-eUML](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/euml.cpp)   | [Boost-1.65.Statechart](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sc.cpp)   |
 |------------------|------------|---------|--------------|------------------|--------------------|
 | Compilation time |  0.132s    | 15.321s |       0.582s |        1m15.935s |             5.671s |
 | Execution time   |   679ms    | 827ms   |        622ms |        664ms     |             2282ms |
