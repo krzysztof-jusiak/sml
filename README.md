@@ -11,7 +11,7 @@
 
 > Your scalable C++14 **one header only** State Machine Library with no dependencies
 
-* (**[__Try it online!__](http://boost-experimental.github.io/sml/examples/index.html#hello-world)**)
+* [__Try it online!__](https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
 * Get the [latest header](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
 
 <p align="center">
@@ -86,10 +86,15 @@ int main() {
 }
 ```
 
+> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
+
+  * use `state<class state_name>` instead of `"state_name"_s`
+  * expliclty state a lambda's result type `auto action = [] -> void {}`
+
 <p align="center">
 <table>
   <tr>
-    <th>tcp_release (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)</th>
+    <th>tcp_release</th>
     <th>Clang-3.8</th>
     <th>GCC-6</th>
     <th>MSVC-2015</th>
@@ -133,11 +138,6 @@ main: # @main
   </tr>
 </table>
 </p>
-
-> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
-
-  * use `state<class state_name>` instead of `"state_name"_s`
-  * expliclty state a lambda's result type `auto action = [] -> void {}`
 
 ### Benchmark
 
