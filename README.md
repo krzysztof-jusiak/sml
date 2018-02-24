@@ -139,21 +139,23 @@ main: # @main
 </table>
 </p>
 
-### Benchmark
+### Benchmark ([Complex Test](https://github.com/boost-experimental/sml/tree/master/test/pt/complex))
 
-| Clang-3.8        | [Boost].SML - 1.1.0 | Boost-1.65.MSM-eUML] | Boost-1.65.MSM3-eUML2 | Boost-1.65.Statechart |
-|------------------|----------------|------------------|--------------------|--------------------|
-| Compilation time | 0.582s         | 1m15.935s        | 43.341s            | 3.661s             |
-| Execution time   | 69ms           | 81ms             | 78ms               | 6221ms             |
-| Memory usage     | 1b             | 120b             | 72b                | 200b               |
-| Executable size  | 35K            | 611K             | 31K + boost_system | 343K               |
+|                  | Enum/Switch | Variant | [Boost].SML - 1.1.0 |
+|------------------|-------------|---------|-------------|
+| Compilation time |   0.132s | 15.321s | 0.582s |
+| Execution time   |    679ms | 827ms   |  622ms |
+| Memory usage     |       1b | 2b/8b   |     1b |
+| Executable size  |      15K | 187K    |    34K |
+| | | | |
+| Line of Code (LOC) | ~300 (no macros) | ~300 | ~50 |
 
-| GCC-6.3          | [Boost].SML - 1.1.0 | Boost-1.65.MSM-eUML] | Boost-1.65.MSM3-eUML2 | Boost-1.65.Statechart |
-|------------------|----------------|------------------|--------------------|--------------------|
-| Compilation time | 0.816s         | 52.238s          | 1m41.045s          | 4.997s             |
-| Execution time   | 72ms           | 77ms             | 91ms               | 5520ms             |
-| Memory usage     | 1b             | 120b             | 72b                | 224b               |
-| Executable size  | 35K            | 271K             | 47K + boost_system | 215K               |
+|                  | [Boost].SML - 1.1.0    | Boost-1.65.MSM-eUML   | Boost-1.65.Statechart   |
+|------------------|----------------|------------------|--------------------|
+| Compilation time |         0.582s |        1m15.935s |             5.671s |
+| Execution time   |          622ms |        664ms     |             2282ms |
+| Memory usage     |             1b |        120b      |             224b   |
+| Executable size  |            34K |        611K      |             211K   |
 
 ---------------------------------------
 
