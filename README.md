@@ -107,8 +107,6 @@ int main() {
 #### Compile
 ```sh
 $CXX -std=c++14 -O2 -fno-exceptions -Wall -Wextra -Werror -pedantic -pedantic-errors tcp_release.cpp
-```
-```sh
 cl /std:c++14 /Ox /W3 tcp_release.cpp
 ```
 
