@@ -12,7 +12,7 @@
 > Your scalable C++14 **one header only** State Machine Library with no dependencies
 
 * [__Try it online!__](https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
-* Get the [latest header](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
+* Get the [__latest header!__](https://raw.githubusercontent.com/boost-experimental/sml/master/include/boost/sml.hpp)
 
 <p align="center">
   <br />
@@ -96,7 +96,7 @@ int main() {
   <tr>
     <th>tcp_release</th>
     <th>Clang-3.8</th>
-    <th>GCC-6</th>
+    <th>GCC-6.2</th>
     <th>MSVC-2015</th>
   </tr>
 
@@ -141,26 +141,19 @@ main: # @main
 
 ### Benchmark
 
-| Clang-3.7        | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
+| Clang-3.8        | [Boost].SML - 1.1.0 | Boost-1.65.MSM-eUML] | Boost-1.65.MSM3-eUML2 | Boost-1.65.Statechart |
 |------------------|----------------|------------------|--------------------|--------------------|
 | Compilation time | 0.582s         | 1m15.935s        | 43.341s            | 3.661s             |
 | Execution time   | 69ms           | 81ms             | 78ms               | 6221ms             |
 | Memory usage     | 1b             | 120b             | 72b                | 200b               |
 | Executable size  | 35K            | 611K             | 31K + boost_system | 343K               |
 
-| GCC-5.2          | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
+| GCC-6.3          | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
 |------------------|----------------|------------------|--------------------|--------------------|
 | Compilation time | 0.816s         | 52.238s          | 1m41.045s          | 4.997s             |
 | Execution time   | 72ms           | 77ms             | 91ms               | 5520ms             |
 | Memory usage     | 1b             | 120b             | 72b                | 224b               |
 | Executable size  | 35K            | 271K             | 47K + boost_system | 215K               |
-
-| MSVC-2015        | [Boost].SML    | [Boost.MSM-eUML] | [Boost.MSM3-eUML2] | [Boost.Statechart] |
-|------------------|----------------|------------------|--------------------|--------------------|
-| Compilation time | 1.891s         |                  |                    |                    |
-| Execution time   | 166ms          |                  |                    |                    |
-| Memory usage     | 104b           |                  |                    |                    |
-| Executable size  | 224K           |                  |                    |                    |
 
 ---------------------------------------
 
