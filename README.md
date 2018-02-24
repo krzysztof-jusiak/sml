@@ -86,11 +86,6 @@ int main() {
 }
 ```
 
-> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
-
-  * use `state<class state_name>` instead of `"state_name"_s`
-  * expliclty state a lambda's result type `auto action = [] -> void {}`
-
 <p align="center">
 <table>
   <tr>
@@ -138,6 +133,11 @@ main: # @main
   </tr>
 </table>
 </p>
+
+> (***) MSVC-2015 ([Example](http://boost-experimental.github.io/sml/examples/index.html#hello-world))
+
+  * use `state<class state_name>` instead of `"state_name"_s`
+  * expliclty state a lambda's result type `auto action = [] -> void {}`
 
 ### Benchmark
 
