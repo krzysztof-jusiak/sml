@@ -141,21 +141,12 @@ main: # @main
 
 ### Benchmark ([Complex Test](https://github.com/boost-experimental/sml/tree/master/test/pt/complex))
 
-|                  | Enum/Switch | Variant | [Boost].SML - 1.1.0 |
-|------------------|-------------|---------|-------------|
-| Compilation time |   0.132s | 15.321s | 0.582s |
-| Execution time   |    679ms | 827ms   |  622ms |
-| Memory usage     |       1b | 2b/8b   |     1b |
-| Executable size  |      15K | 187K    |    34K |
-| | | | |
-| Line of Code (LOC) | ~300 (no macros) | ~300 | ~50 |
-
-|                  | [Boost].SML - 1.1.0    | Boost-1.65.MSM-eUML   | Boost-1.65.Statechart   |
-|------------------|----------------|------------------|--------------------|
-| Compilation time |         0.582s |        1m15.935s |             5.671s |
-| Execution time   |          622ms |        664ms     |             2282ms |
-| Memory usage     |             1b |        120b      |             224b   |
-| Executable size  |            34K |        611K      |             211K   |
+|                  |[Enum/Switch](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/switch.cpp) | [Variant](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/variant.cpp) | [[Boost].SML - 1.1.0](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sml.cpp)    | [Boost-1.65.MSM-eUML](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/euml.cpp)   | [Boost-1.65.Statechart](https://github.com/boost-experimental/sml/blob/master/benchmark/complex/sc.cpp)   |
+|------------------|------------|---------|--------------|------------------|--------------------|
+| Compilation time |  0.132s    | 15.321s |       0.582s |        1m15.935s |             5.671s |
+| Execution time   |   679ms    | 827ms   |        622ms |        664ms     |             2282ms |
+| Memory usage     |      1b    | 2b/8b   |           1b |        120b      |             224b   |
+| Executable size  |     15K    | 187K    |          34K |        611K      |             211K   |
 
 ---------------------------------------
 
