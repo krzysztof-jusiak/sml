@@ -134,7 +134,7 @@ cl /std:c++14 /Ox /W3 tcp_release.cpp (***)
   </tr>
 
   <tr>
-    <td>ASM x86-64<br/>https://godbolt.org/g/sNfLzn</td>
+    <td>ASM x86-64 - <br/>https://godbolt.org/g/sNfLzn</td>
     <td colspan="3">
       <pre><code>
 main: # @main
@@ -158,9 +158,7 @@ main: # @main
 </table>
 </p>
 
-#### Run
-  * https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah
-
+#### Run (https://wandbox.org/permlink/GAbyDnNNxXmAR7Ah)
 > Output
 ```sh
 send: 0
